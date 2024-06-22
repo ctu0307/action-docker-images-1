@@ -45,10 +45,10 @@ jobs:
           # 查看docker 版本
           echo "1111"
           docker version
-          echo "2222"
+          echo "2222++ ${{ secrets.DOCKER_USERNAME }}"
           echo "@@@@@@@:docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD $docker_repo"
           # 登录阿里云镜像仓库， 这里登录docker的用户名和密码在Secrets中设置，下面有介绍
-          docker login --username=ctu0307 --password=abcctu98760 $docker_repo
+          docker login --username=$DOCKER_USERNAME --password-stdin=${{ secrets.DOCKER_PASSWORD }} $docker_repo
           echo "3333"
           # 使用Dockerfile构建镜像
           docker build . --file Dockerfile --tag $docker_repo/$ali_ns/$image_name:$tag
