@@ -27,7 +27,7 @@ jobs:
           # 指定镜像名称
           image_name: redis
           # 指定镜像标签
-          tag: 7.4-rc1
+          tag: 6.2
       run: |
           # 查看docker 版本
           docker version
