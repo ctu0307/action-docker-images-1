@@ -25,9 +25,9 @@ jobs:
           # 阿里云创建的命名空间
           ali_ns: docker-images-by-github
           # 指定镜像名称
-          image_name: redis
+          image_name: bltavares/zerotier
           # 指定镜像标签
-          tag: 6.2
+          tag: latest
       run: |
           # 查看docker 版本
           docker version
