@@ -27,7 +27,7 @@ jobs:
           # 指定镜像名称
           image_name: redis
           # 指定镜像标签
-          tag: 7.2.0
+          tag: 7.2.5
       run: |
           # 查看docker 版本
           docker version
@@ -35,10 +35,21 @@ jobs:
           # pull 镜像
           docker pull $image_name:$tag
           echo "docker tag 转成 ali目标镜像"
-          # docker tag 转成 ali目标镜像
-          docker tag $image_name:$tag $docker_repo/$ali_ns/$image_name:$tag 
-          # 登录阿里云镜像仓库， 这里登录docker的用户名和密码在Secrets中设置，下面有介绍
-          docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} $docker_repo
-          echo "推送镜像到镜像仓库"
-          # 推送镜像到镜像仓库
-          docker push $docker_repo/$ali_ns/$image_name:$tag
+          if ${{ contains(env.image_name, '/') }} ; then
+            echo "镜像名，多级目录！！！"
+            docker tag $image_name:$tag $docker_repo/$ali_ns/$image_name:$tag 
+            # 登录阿里云镜像仓库， 这里登录docker的用户名和密码在Secrets中设置，下面有介绍
+            docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} $docker_repo
+            echo "推送镜像到镜像仓库"
+            # 推送镜像到镜像仓库
+            docker push $docker_repo/$ali_ns/$image_name:$tag
+          else
+            echo "镜像名，非多级目录！！！"
+            # docker tag 转成 ali目标镜像
+            docker tag $image_name:$tag $docker_repo/$ali_ns/$image_name:$tag 
+            # 登录阿里云镜像仓库， 这里登录docker的用户名和密码在Secrets中设置，下面有介绍
+            docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} $docker_repo
+            echo "推送镜像到镜像仓库"
+            # 推送镜像到镜像仓库
+            docker push $docker_repo/$ali_ns/$image_name:$tag
+          fi
