@@ -26,10 +26,10 @@ jobs:
           ali_ns: docker-images-by-github
           # 指定镜像名称，此处，如果包含/，即多级目录；
           # 则target_image_name不能为空，并且必需重命名，而且不能包含多级路径
-          image_name: redis
+          image_name: bltavares/zerotier
           target_image_name: zerotier
           # 指定镜像标签
-          tag: 7.2.0
+          tag: 1.14.0
       run: |
           # 查看docker 版本
           docker version
