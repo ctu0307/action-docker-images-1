@@ -43,16 +43,11 @@ jobs:
           
           if ${{ contains(env.image_name, '/') }} ; then
             echo "镜像名，多级目录！！！"
-            echo "docker tag 转成 ali目标镜像"
-            docker tag $image_name:$tag $docker_repo/$ali_ns/$target_image_name:$tag 
-            echo "推送镜像到镜像仓库"
-            docker push $docker_repo/$ali_ns/$target_image_name:$tag
             t_tag=$docker_repo/$ali_ns/$target_image_name:$tag
           else
             echo "镜像名，非多级目录！！！"
-            echo "docker tag 转成 ali目标镜像"
-            docker tag $image_name:$tag $docker_repo/$ali_ns/$image_name:$tag 
-            echo "推送镜像到镜像仓库"
-            docker push $docker_repo/$ali_ns/$image_name:$tag
           fi
-          echo "t_tag=$t_tag"
+          echo "docker tag 转成 ali目标镜像：$t_tag"
+          docker tag $image_name:$tag $t_tag
+          echo "推送镜像到镜像仓库"
+          docker push $t_tag
