@@ -36,8 +36,8 @@ jobs:
       run: |
           # 查看docker 版本
           docker version
-          s_tag: $image_name:$tag
-          t_tag: $docker_repo/$ali_ns/$image_name:$tag
+          $s_tag: $image_name:$tag
+          $t_tag: $docker_repo/$ali_ns/$image_name:$tag
           echo "拉取镜像：$s_tag"
           docker pull $s_tag
           echo "docker tag 转成 ali目标镜像"
