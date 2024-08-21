@@ -30,6 +30,9 @@ jobs:
           target_image_name: zerotier
           # 指定镜像标签
           tag: 1.14.0
+          # 以下两个变量，不需要设置，临时使用
+          s_tag: ""
+          t_tag: ""
       run: |
           # 查看docker 版本
           docker version
